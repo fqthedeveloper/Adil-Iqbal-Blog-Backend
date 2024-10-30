@@ -1,27 +1,23 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, CategorySerializer, BlogsSerializer, ContentSerializer, AdminSerializer
 from rest_framework import generics
-from rest_framework import permissions
 from . import models
-from webbrowser import get
-from datetime import datetime
-
+from rest_framework import status, permissions
+from rest_framework.response import Response
 
 
 class AdminList(generics.ListCreateAPIView) :
     queryset = models.Admin.objects.all()
     serializer_class = AdminSerializer
-    #permission_classese = [permissions.IsAuthenticated]
+    permission_classese = [permissions.IsAuthenticated]
 
 
 class adminDetail(generics.RetrieveUpdateDestroyAPIView) :
     queryset = models.Users.objects.all()
     serializer_class = AdminSerializer
-    #permission_classese = [permissions.IsAuthenticated]
+    permission_classese = [permissions.IsAuthenticated]
 
 
 @csrf_exempt
@@ -53,18 +49,23 @@ class AdminBlogsList(generics.ListCreateAPIView) :
 class UsersList(generics.ListCreateAPIView) :
     queryset = models.Users.objects.all()
     serializer_class = UserSerializer
-    #permission_classese = [permissions.IsAuthenticated]
+    permission_classese = [permissions.IsAuthenticated]
 
 
 class UsersDetail(generics.RetrieveUpdateDestroyAPIView) :
     queryset = models.Users.objects.all()
     serializer_class = UserSerializer
-    #permission_classese = [permissions.IsAuthenticated]
+    permission_classese = [permissions.IsAuthenticated]
 
-    def get_queryset(self) :
-       user_id = self.kwargs['user_id']
-       user = models.Users.objects.get(pk=user_id)
-       return models.Users.objects.filter(Users=user)
+    def get_queryset(self):
+        user_id = self.kwargs['pk']
+        try:
+            user = models.Users.objects.get(pk=user_id)
+        except models.Users.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        return models.Users.objects.filter(id=user.id)
+
 
 
 @csrf_exempt
