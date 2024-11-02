@@ -25,15 +25,15 @@ urlpatterns = [
 
     path('blogs/', views.BlogsList.as_view()),
     
-    path('blogs/<int:pk>', views.BlogsDetailViwe.as_view()),
+    path('blogs/<int:pk>', views.BlogsDetailView.as_view()),
 
     path('content-blogs/<int:blogs_id>', views.BlogsContentList.as_view()),
 
     path('content/<int:pk>', views.ContentList.as_view()),
 
-    path('blogdetails/<int:pk>', views.BlogsDetailViwe.as_view()),
-
-   
-
-
+    path('blogdetails/<int:pk>', views.BlogsDetailView.as_view()),
+    
+    path('likes/', views.LikeCreateView.as_view(), name='like-create'),
+    
+    path('comments/<int:content_id>/', views.CommentListCreateView.as_view(), name='comment-list-create'),
 ]

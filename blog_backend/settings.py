@@ -150,6 +150,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-
 MEDIA_URL = '/media/'
-MEADIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

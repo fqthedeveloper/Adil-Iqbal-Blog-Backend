@@ -24,4 +24,4 @@ urlpatterns = [
     path('api/', include('blog_main.urls')),
     path('auth-token/', include('rest_framework.urls')),
 
-]+static(settings.MEDIA_URL,document_root=settings.MEADIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

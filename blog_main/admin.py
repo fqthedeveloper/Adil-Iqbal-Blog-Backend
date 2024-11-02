@@ -33,3 +33,14 @@ class ContentAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Content, ContentAdmin)
 
+class LikeAdmin(admin.ModelAdmin):
+    
+    list_display = ('user', 'content')
+
+admin.site.register(models.Like, LikeAdmin)
+
+class CommentAdmin(admin.ModelAdmin):
+    
+    list_display = ('user', 'content')
+
+admin.site.register(models.Comment, CommentAdmin)
